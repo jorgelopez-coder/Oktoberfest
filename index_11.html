@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oktoberfest by the Beach · Las Catalinas 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#1f4e9c; --azul-osc:#132f63; --azul-cl:#dbe8fb;
+    --ambar:#f2a33a; --crema:#fff8ec; --tinta:#1b2233;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Nunito',sans-serif;color:var(--tinta);background:var(--azul-osc);}
+
+  /* Patrón de rombos bávaros */
+  .rombos{
+    background:
+      conic-gradient(from 45deg at 50% 50%, #fff 25%, var(--azul) 0 50%, #fff 0 75%, var(--azul) 0) 0 0/28px 28px;
+  }
+  .banda{height:22px}
+
+  .hero{
+    position:relative; min-height:340px; display:flex; align-items:flex-end;
+    background:linear-gradient(180deg,#f7b267 0%,#e8845a 45%,#5b3a5e 100%);
+    background-size:cover; background-position:center;
+  }
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,47,99,0) 35%,rgba(19,47,99,.92) 100%)}
+  .hero-txt{position:relative;z-index:1;padding:28px 20px 26px;width:100%;max-width:640px;margin:0 auto;color:#fff}
+  .hero-txt .lugar{letter-spacing:.18em;text-transform:uppercase;font-weight:700;font-size:.8rem;color:var(--ambar)}
+  .hero-txt h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(2.6rem,10vw,4.2rem);line-height:.95;margin:.25em 0 .2em}
+  .hero-txt .fecha{display:inline-block;background:var(--ambar);color:var(--azul-osc);font-weight:800;padding:.35em .9em;border-radius:999px;font-size:1rem}
+
+  main{max-width:640px;margin:0 auto;padding:0 16px 40px}
+  .card{background:var(--crema);margin-top:-6px;border-radius:0 0 18px 18px;padding:26px 22px 28px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+  .premio{display:flex;gap:12px;align-items:center;background:var(--azul-cl);border-left:5px solid var(--azul);padding:12px 14px;border-radius:10px;margin-bottom:22px;font-weight:600}
+  .premio span{font-size:1.6rem}
+  h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.9rem;margin:0 0 4px;color:var(--azul-osc)}
+  .sub{margin:0 0 20px;color:#4a5570}
+
+  label{display:block;font-weight:700;margin:14px 0 6px;font-size:.95rem}
+  input[type=text],input[type=email],input[type=tel]{
+    width:100%;padding:14px;font:inherit;border:2px solid #c9d3e6;border-radius:10px;background:#fff;color:var(--tinta)
+  }
+  input:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(31,78,156,.18)}
+  .wa{display:flex;gap:8px}
+  .wa select{flex:0 0 118px;padding:14px 6px;font:inherit;font-weight:700;border:2px solid #c9d3e6;border-radius:10px;background:#eef2fa;color:var(--tinta)}
+  .wa select:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(31,78,156,.18)}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:.85rem;color:#4a5570}
+  .consent input{margin-top:3px;width:18px;height:18px;accent-color:var(--azul)}
+
+  button{
+    margin-top:22px;width:100%;padding:16px;border:0;border-radius:12px;cursor:pointer;
+    font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;
+    background:var(--ambar);color:var(--azul-osc);box-shadow:0 5px 0 #c27f1c;transition:transform .08s
+  }
+  button:active{transform:translateY(3px);box-shadow:0 2px 0 #c27f1c}
+  button[disabled]{opacity:.6;cursor:wait}
+  .error{color:#b3261e;font-weight:700;margin-top:12px;min-height:1.2em}
+
+  .ok{text-align:center;padding:18px 4px}
+  .ok .icono{font-size:3.4rem}
+  .ok h2{font-size:2.2rem}
+  .hidden{display:none}
+  footer{text-align:center;color:#b9c7e6;font-size:.8rem;padding:6px 16px 26px}
+</style>
+</head>
+<body>
+
+<div class="banda rombos"></div>
+
+<!-- Para usar tu foto: sube la imagen a Drive, compártela como "Cualquier persona con el enlace"
+     y pega su ID en HERO_ID (dentro del script al final). -->
+<header class="hero" id="hero">
+  <div class="hero-txt">
+    <div class="lugar">Las Catalinas · Guanacaste</div>
+    <h1>Oktoberfest<br>by the Beach</h1>
+    <span class="fecha">24 y 25 de octubre · 2026</span>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <div id="formulario">
+      <div class="premio"><span>🏆</span><div>Al registrarte quedas participando en premios.</div></div>
+      <h2>Regístrate</h2>
+      <p class="sub">Déjanos tus datos y asegura tu participación.</p>
+
+      <form id="f" novalidate>
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" autocomplete="name" required>
+
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" autocomplete="email" inputmode="email" required>
+
+        <label for="whatsapp">WhatsApp</label>
+        <div class="wa">
+          <select id="pais" aria-label="Código de país">
+            <option value="+506" selected>🇨🇷 +506</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+52">🇲🇽 +52</option>
+            <option value="+507">🇵🇦 +507</option>
+            <option value="+505">🇳🇮 +505</option>
+            <option value="+503">🇸🇻 +503</option>
+            <option value="+502">🇬🇹 +502</option>
+            <option value="+504">🇭🇳 +504</option>
+            <option value="+57">🇨🇴 +57</option>
+            <option value="+54">🇦🇷 +54</option>
+            <option value="+56">🇨🇱 +56</option>
+            <option value="+55">🇧🇷 +55</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+33">🇫🇷 +33</option>
+            <option value="+39">🇮🇹 +39</option>
+            <option value="+41">🇨🇭 +41</option>
+            <option value="+31">🇳🇱 +31</option>
+            <option value="+972">🇮🇱 +972</option>
+            <option value="">🌐 Otro</option>
+          </select>
+          <input type="tel" id="whatsapp" autocomplete="tel-national" inputmode="tel" placeholder="Número (si eliges Otro, incluye el código: +33...)" required>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" id="acepto" required>
+          <span>Acepto recibir información del evento y de futuras actividades por correo y WhatsApp.</span>
+        </label>
+
+        <div class="error" id="error" role="alert"></div>
+        <button type="submit" id="btn">¡Quiero participar!</button>
+      </form>
+    </div>
+
+    <div id="exito" class="ok hidden">
+      <div class="icono">🍻</div>
+      <h2>¡Prost! Ya estás registrado</h2>
+      <p id="msg-exito">Ya estás participando en los premios. Te esperamos el 24 y 25 de octubre en Las Catalinas.</p>
+    </div>
+  </div>
+</main>
+
+<div class="banda rombos"></div>
+<footer>Papagayo Brewing · Oktoberfest by the Beach 2026</footer>
+
+<script>
+  // URL de la implementación de Apps Script (termina en /exec). Pégala aquí:
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxP5MxtLhe2SpbGObisGr-EMMtidPjwN-X7L6-X4HPpcf6LHu6gYOD_zH7hyAF0uKW_Pg/exec';
+
+  // ID del archivo de imagen en Google Drive (opcional). Ejemplo: '1AbCdEfGh...'
+  const HERO_ID = '1LHdaqBTA5ZLVrO-xwuZfTnkV0WuXph0z';
+  if (HERO_ID) {
+    document.getElementById('hero').style.backgroundImage =
+      "url('https://drive.google.com/thumbnail?id=" + HERO_ID + "&sz=w1600')";
+  }
+
+  const f = document.getElementById('f'), btn = document.getElementById('btn'), err = document.getElementById('error');
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.textContent = '';
+    const nombre = document.getElementById('nombre').value.trim();
+    const correo = document.getElementById('correo').value.trim();
+    const pais = document.getElementById('pais').value;
+    const wa = document.getElementById('whatsapp').value.replace(/[^\d]/g, '');
+
+    if (nombre.length < 2) return err.textContent = 'Ingresa tu nombre.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return err.textContent = 'Revisa tu correo.';
+    if (wa.length < 8) return err.textContent = 'Revisa tu número de WhatsApp.';
+    if (!document.getElementById('acepto').checked) return err.textContent = 'Debes aceptar para continuar.';
+
+    if (!API_URL || API_URL.indexOf('PEGAR') === 0) return err.textContent = 'Falta configurar la URL del servidor.';
+
+    btn.disabled = true; btn.textContent = 'Enviando...';
+    // Sin encabezados personalizados para evitar el preflight de CORS con Apps Script
+    fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ nombre: nombre, correo: correo, whatsapp: pais ? pais + ' ' + wa : '+' + wa })
+    })
+      .then(function (resp) { return resp.json(); })
+      .then(function (r) {
+        if (!r || !r.ok) { fallo((r && r.error) || 'No se pudo registrar.'); return; }
+        if (r.repetido) document.getElementById('msg-exito').textContent =
+          'Este correo ya estaba registrado, ¡ya estás participando! Te esperamos el 24 y 25 de octubre.';
+        document.getElementById('formulario').classList.add('hidden');
+        document.getElementById('exito').classList.remove('hidden');
+      })
+      .catch(function () { fallo('Error de conexión. Intenta de nuevo.'); });
+  });
+
+  function fallo(m) { err.textContent = m; btn.disabled = false; btn.textContent = '¡Quiero participar!'; }
+</script>
+</body>
+</html>
