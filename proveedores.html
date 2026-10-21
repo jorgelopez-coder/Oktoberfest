@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Proveedores · Oktoberfest by the Beach 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#1f4e9c; --azul-osc:#132f63; --azul-cl:#dbe8fb;
+    --ambar:#f2a33a; --crema:#fff8ec; --tinta:#1b2233;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Nunito',sans-serif;color:var(--tinta);background:var(--azul-osc);}
+
+  /* Patrón de rombos bávaros */
+  .rombos{
+    background:
+      conic-gradient(from 45deg at 50% 50%, #fff 25%, var(--azul) 0 50%, #fff 0 75%, var(--azul) 0) 0 0/28px 28px;
+  }
+  .banda{height:22px}
+
+  .hero{
+    position:relative; min-height:300px; display:flex; align-items:flex-end;
+    background:linear-gradient(180deg,#f7b267 0%,#e8845a 45%,#5b3a5e 100%);
+    background-size:cover; background-position:center;
+  }
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,47,99,0) 35%,rgba(19,47,99,.92) 100%)}
+  .hero-txt{position:relative;z-index:1;padding:28px 20px 26px;width:100%;max-width:640px;margin:0 auto;color:#fff}
+  .hero-txt .lugar{letter-spacing:.18em;text-transform:uppercase;font-weight:700;font-size:.8rem;color:var(--ambar)}
+  .hero-txt h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(2.4rem,9vw,3.8rem);line-height:.95;margin:.25em 0 .3em}
+  .hero-txt .fecha{display:inline-block;background:var(--ambar);color:var(--azul-osc);font-weight:800;padding:.35em .9em;border-radius:999px;font-size:1rem}
+
+  main{max-width:640px;margin:0 auto;padding:0 16px 40px}
+  .card{background:var(--crema);margin-top:-6px;border-radius:0 0 18px 18px;padding:26px 22px 28px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+  .aviso{display:flex;gap:12px;align-items:flex-start;background:#fff1d6;border-left:5px solid var(--ambar);padding:12px 14px;border-radius:10px;margin-bottom:22px;font-weight:600}
+  .aviso span{font-size:1.6rem;line-height:1.1}
+  h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.9rem;margin:0 0 4px;color:var(--azul-osc)}
+  .sub{margin:0 0 20px;color:#4a5570}
+
+  label{display:block;font-weight:700;margin:14px 0 6px;font-size:.95rem}
+  input[type=text],select,textarea{
+    width:100%;padding:14px;font:inherit;border:2px solid #c9d3e6;border-radius:10px;background:#fff;color:var(--tinta)
+  }
+  textarea{min-height:90px;resize:vertical}
+  select:disabled{background:#eef2fa;color:#7a8499}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(31,78,156,.18)}
+  .opcional{font-weight:600;color:#7a8499}
+  .ayuda{font-size:.82rem;color:#5a6580;margin:6px 0 0}
+
+  .dias{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .dia{position:relative;margin:0}
+  .dia input{position:absolute;opacity:0;pointer-events:none}
+  .dia span{display:block;text-align:center;padding:14px 8px;border:2px solid #c9d3e6;border-radius:10px;background:#fff;font-weight:800;cursor:pointer}
+  .dia small{display:block;font-weight:600;color:#4a5570}
+  .dia input:checked + span{border-color:var(--azul);background:var(--azul-cl);color:var(--azul-osc);box-shadow:0 0 0 3px rgba(31,78,156,.18)}
+  .dia input:checked + span::before{content:"✓ "}
+  .dia input:focus-visible + span{border-color:var(--azul);box-shadow:0 0 0 3px rgba(31,78,156,.3)}
+
+  .bloque-hora{background:#fff;border:2px solid #e3e9f5;border-radius:12px;padding:2px 14px 14px;margin-top:12px}
+
+  button{
+    margin-top:22px;width:100%;padding:16px;border:0;border-radius:12px;cursor:pointer;
+    font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;
+    background:var(--ambar);color:var(--azul-osc);box-shadow:0 5px 0 #c27f1c;transition:transform .08s
+  }
+  button:active{transform:translateY(3px);box-shadow:0 2px 0 #c27f1c}
+  button[disabled]{opacity:.6;cursor:wait}
+  .error{color:#b3261e;font-weight:700;margin-top:12px;min-height:1.2em}
+
+  .ok{text-align:center;padding:18px 4px}
+  .ok .icono{font-size:3.4rem}
+  .ok h2{font-size:2.2rem}
+  .resumen{background:#fff;border:2px solid #e3e9f5;border-radius:12px;padding:12px 16px;text-align:left;margin:16px 0}
+  .resumen div{padding:3px 0}
+  .hidden{display:none}
+  footer{text-align:center;color:#b9c7e6;font-size:.8rem;padding:6px 16px 26px}
+</style>
+</head>
+<body>
+
+<div class="banda rombos"></div>
+
+<header class="hero" id="hero">
+  <div class="hero-txt">
+    <div class="lugar">Las Catalinas · Guanacaste</div>
+    <h1>Registro de proveedores</h1>
+    <span class="fecha">Montaje · 23 y 24 de octubre</span>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <div id="formulario">
+      <div class="aviso">
+        <span>🚚</span>
+        <div>Solo puede ingresar <b>un vehículo de proveedor a la vez</b>. Si ya hay otro adentro, deberás esperar en la entrada hasta que salga.</div>
+      </div>
+      <h2>Datos del montaje</h2>
+      <p class="sub">Completa el registro antes de llegar.</p>
+
+      <form id="f" novalidate>
+        <label for="empresa">Empresa</label>
+        <input type="text" id="empresa" autocomplete="organization" maxlength="120" required>
+
+        <label>Fecha de montaje <span class="opcional">(puedes elegir las dos)</span></label>
+        <div class="dias">
+          <label class="dia"><input type="checkbox" name="dia" value="2026-10-23"><span>Viernes<small>23 de octubre</small></span></label>
+          <label class="dia"><input type="checkbox" name="dia" value="2026-10-24"><span>Sábado<small>24 de octubre</small></span></label>
+        </div>
+
+        <div class="bloque-hora hidden" id="bh-2026-10-23">
+          <label for="hora-2026-10-23">Hora estimada · Viernes 23</label>
+          <select id="hora-2026-10-23"></select>
+        </div>
+        <div class="bloque-hora hidden" id="bh-2026-10-24">
+          <label for="hora-2026-10-24">Hora estimada · Sábado 24</label>
+          <select id="hora-2026-10-24"></select>
+        </div>
+
+        <label for="placa">Placa del vehículo</label>
+        <input type="text" id="placa" autocapitalize="characters" autocomplete="off" maxlength="12" required>
+
+        <label for="chofer">Nombre del chofer</label>
+        <input type="text" id="chofer" autocomplete="name" maxlength="120" required>
+
+        <label for="cedula">Cédula del chofer</label>
+        <input type="text" id="cedula" inputmode="text" autocomplete="off" maxlength="30" required>
+        <p class="ayuda">Escríbela sin guiones ni espacios.</p>
+
+        <label for="notas">Notas <span class="opcional">(opcional)</span></label>
+        <textarea id="notas" maxlength="500" placeholder="Tipo de carga, medidas del vehículo, indicaciones..."></textarea>
+
+        <div class="error" id="error" role="alert"></div>
+        <button type="submit" id="btn">Registrar montaje</button>
+      </form>
+    </div>
+
+    <div id="exito" class="ok hidden">
+      <div class="icono">🚚</div>
+      <h2>¡Registro confirmado!</h2>
+      <div class="resumen">
+        <div><b>Empresa:</b> <span id="r-empresa"></span></div>
+        <div id="r-cuando"></div>
+        <div><b>Placa:</b> <span id="r-placa"></span></div>
+      </div>
+      <p>Presenta tu cédula al llegar. Solo ingresa un vehículo a la vez: si hay otro proveedor adentro, espera a que salga.</p>
+    </div>
+  </div>
+</main>
+
+<div class="banda rombos"></div>
+<footer>Papagayo Brewing · Oktoberfest by the Beach 2026</footer>
+
+<script>
+  // URL de la implementación de Apps Script (termina en /exec). Pégala aquí:
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxP5MxtLhe2SpbGObisGr-EMMtidPjwN-X7L6-X4HPpcf6LHu6gYOD_zH7hyAF0uKW_Pg/exec';
+
+  // ID del archivo de imagen en Google Drive (portada).
+  const HERO_ID = '1LHdaqBTA5ZLVrO-xwuZfTnkV0WuXph0z';
+  if (HERO_ID) {
+    document.getElementById('hero').style.backgroundImage =
+      "url('https://drive.google.com/thumbnail?id=" + HERO_ID + "&sz=w1600')";
+  }
+
+  const ETIQUETA_DIA = { '2026-10-23': 'Viernes 23 de octubre', '2026-10-24': 'Sábado 24 de octubre' };
+  const DIAS = Object.keys(ETIQUETA_DIA);
+  const $ = function (id) { return document.getElementById(id); };
+  const f = $('f'), btn = $('btn'), err = $('error');
+
+  function etiquetaHora(h) {
+    const p = h.split(':'), hh = parseInt(p[0], 10);
+    return (hh % 12 === 0 ? 12 : hh % 12) + ':' + p[1] + (hh >= 12 ? ' p. m.' : ' a. m.');
+  }
+
+  function opcion(sel, valor, texto, deshabilitada) {
+    const o = document.createElement('option');
+    o.value = valor; o.textContent = texto; o.disabled = !!deshabilitada;
+    sel.appendChild(o);
+  }
+
+  function configurado() { return API_URL && API_URL.indexOf('PEGAR') !== 0; }
+
+  // Horas disponibles (las mismas que acepta el script). Varios proveedores pueden elegir la misma.
+  const HORA_INICIO = 6, HORA_FIN = 20;
+  DIAS.forEach(function (dia) {
+    const sel = $('hora-' + dia);
+    opcion(sel, '', 'Elige una hora');
+    for (let h = HORA_INICIO; h <= HORA_FIN; h++) {
+      const v = (h < 10 ? '0' : '') + h + ':00';
+      opcion(sel, v, etiquetaHora(v));
+    }
+  });
+
+  document.querySelectorAll('input[name=dia]').forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      $('bh-' + cb.value).classList.toggle('hidden', !cb.checked);
+    });
+  });
+
+  // El mensaje de error se quita en cuanto la persona corrige algo
+  ['input', 'change'].forEach(function (ev) { f.addEventListener(ev, function () { err.textContent = ''; }); });
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.textContent = '';
+
+    const montajes = [];
+    let sinHora = '';
+    DIAS.forEach(function (dia) {
+      if (document.querySelector('input[name=dia][value="' + dia + '"]').checked) {
+        const hora = $('hora-' + dia).value;
+        if (!hora && !sinHora) sinHora = ETIQUETA_DIA[dia];
+        montajes.push({ dia: dia, hora: hora });
+      }
+    });
+
+    const datos = {
+      accion: 'registrar',
+      empresa: $('empresa').value.trim(),
+      montajes: montajes,
+      placa: $('placa').value.trim().toUpperCase().replace(/[\s-]/g, ''),
+      chofer: $('chofer').value.trim(),
+      cedula: $('cedula').value.trim().replace(/[\s-]/g, ''),
+      notas: $('notas').value.trim()
+    };
+
+    if (datos.empresa.length < 2) return err.textContent = 'Ingresa el nombre de la empresa.';
+    if (!montajes.length) return err.textContent = 'Elige al menos un día de montaje.';
+    if (sinHora) return err.textContent = 'Elige la hora estimada para el ' + sinHora.toLowerCase() + '.';
+    if (!/^[A-Z0-9]{3,10}$/.test(datos.placa)) return err.textContent = 'Revisa la placa del vehículo.';
+    if (datos.chofer.length < 3) return err.textContent = 'Ingresa el nombre del chofer.';
+    if (!/^[A-Za-z0-9]{5,20}$/.test(datos.cedula)) return err.textContent = 'Revisa la cédula del chofer.';
+    if (!configurado()) return err.textContent = 'Falta configurar la URL del servidor.';
+
+    btn.disabled = true; btn.textContent = 'Enviando...';
+    // Sin encabezados personalizados para evitar el preflight de CORS con Apps Script
+    fetch(API_URL, { method: 'POST', body: JSON.stringify(datos) })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (!r || !r.ok) {
+          fallo((r && r.error) || 'No se pudo registrar.');
+          return;
+        }
+        $('r-empresa').textContent = datos.empresa;
+        $('r-placa').textContent = datos.placa;
+        const cont = $('r-cuando'); cont.innerHTML = '';
+        montajes.forEach(function (m) {
+          const d = document.createElement('div');
+          const b = document.createElement('b'); b.textContent = 'Montaje: ';
+          d.appendChild(b);
+          d.appendChild(document.createTextNode(ETIQUETA_DIA[m.dia] + ', ' + etiquetaHora(m.hora)));
+          cont.appendChild(d);
+        });
+        $('formulario').classList.add('hidden');
+        $('exito').classList.remove('hidden');
+        window.scrollTo(0, 0);
+      })
+      .catch(function () { fallo('Error de conexión. Intenta de nuevo.'); });
+  });
+
+  function fallo(m) { err.textContent = m; btn.disabled = false; btn.textContent = 'Registrar montaje'; }
+</script>
+</body>
+</html>
